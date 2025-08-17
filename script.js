@@ -45,7 +45,8 @@ const elements = {
     moscow: document.getElementById('moscow'),
     dubai: document.getElementById('dubai'),
     london: document.getElementById('london'),
-    ny: document.getElementById('ny')
+    ny: document.getElementById('ny'),
+    bangkok: document.getElementById('bangkok') // Добавлено время Бангкока
   },
   // Элементы для бегущей строки индексов
   ticker: {
@@ -179,7 +180,7 @@ function updateValue(id, newValue) {
 }
 
 // Обновление изменения
-function updateChange(id currentValue currentValue) {
+function updateChange(id, currentValue) {
   const prevValue = state.prevValues[id];
   const changeElement = elements.mainChange[id];
   const tickerChangeElement = elements.tickerChange[id];
@@ -236,9 +237,7 @@ function createMainChart(id) {
   const ctx = elements.charts[`${id}-main`];
   if (!ctx) return;
   
-  const data = {
-Data[id];
- [];
+  const data = state.chartData[id] || [];
   const labels = data.map(point => point.time.toLocaleTimeString());
   
   state.mainCharts[id] = new Chart(ctx, {
@@ -249,73 +248,74 @@ Data[id];
         label: id.toUpperCase(),
         data: data.map(point => point.value),
         borderColor: getChartColor(id),
-        backgroundColor: getChartColor(id, + '20',
- borderWidth: 3        point pointRadius: 0,
-         pointHoverRadius: 4,
-         fill true true,
-         tension: 0.4,
-         spanGaps: true
-       }]
-     },
-     options: {
-       responsive: true,
-       maintainAspectRatio: false,
-       plugins: {
-         legend: {
-           display: false
-         },
-         tooltip: {
-           mode: 'index',
-           intersect: false,
-           backgroundColor: '#000',
-           titleColor '#fff',
-           bodyColor: '#fff',
-           borderColor: '#333',
-           borderWidth: 1,
-           cornerRadius: 4,
-           displayColors: false,
-           callbacks: {
-             label: function(context) {
-               return `${context.dataset.label}: ${formatNumber(context.parsed.y)}`;
-             }
-           }
-         }
-       },
-       scales: {
-         x: {
-           display: true,
-           grid: {
-             color: '#333',
-             borderColor: '#333'
-           },
-           ticks: {
-             color: '#888',
-             maxRotation: 0,
-             autoSkip: true,
-             maxTicksLimit: 6
-           }
-         },
-         y: {
-           display: true,
-           grid: {
-             color: '#333',
-             borderColor: '#333'
-           },
-           ticks: {
-             color: '#888',
-             callback: function(value) {
-               return formatNumber(value);
-             }
-           }
-         }
-       },
-       interaction: {
-         mode: 'nearest',
-         axis: 'x',
-         intersect: false
-       }
-     }
-   });
+        backgroundColor: getChartColor(id) + '20',
+        borderWidth: 3,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        fill: true,
+        tension: 0.4,
+        spanGaps: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          backgroundColor: '#000',
+          titleColor: '#fff',
+          bodyColor: '#fff',
+          borderColor: '#333',
+          borderWidth: 1,
+          cornerRadius: 4,
+          displayColors: false,
+          callbacks: {
+            label: function(context) {
+              return `${context.dataset.label}: ${formatNumber(context.parsed.y)}`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          display: true,
+          grid: {
+            color: '#333',
+            borderColor: '#333'
+          },
+          ticks: {
+            color: '#888',
+            maxRotation: 0,
+            autoSkip: true,
+            maxTicksLimit: 6
+          }
+        },
+        y: {
+          display: true,
+          grid: {
+            color: '#333',
+            borderColor: '#333'
+          },
+          ticks: {
+            color: '#888',
+            callback: function(value) {
+              return formatNumber(value);
+            }
+          }
+        }
+      },
+      interaction: {
+        mode: 'nearest',
+        axis: 'x',
+        intersect: false
+      }
+    }
+  });
 }
 
 // Обновление основного графика
@@ -458,6 +458,7 @@ function updateTime() {
   elements.time.dubai.textContent = now.toLocaleTimeString('ru-RU', { ...options, timeZone: 'Asia/Dubai' });
   elements.time.london.textContent = now.toLocaleTimeString('ru-RU', { ...options, timeZone: 'Europe/London' });
   elements.time.ny.textContent = now.toLocaleTimeString('ru-RU', { ...options, timeZone: 'America/New_York' });
+  elements.time.bangkok.textContent = now.toLocaleTimeString('ru-RU', { ...options, timeZone: 'Asia/Bangkok' }); // Добавлено время Бангкока
 }
 
 // Обновление всех курсов
