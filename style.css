@@ -1,0 +1,313 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #121212; /* Основной фон как на сайте */
+  --text: #ffffff; /* Основной текст */
+  --accent: #00C853; /* Акцентный цвет как на сайте */
+  --card-bg: #1e1e1e; /* Фон карточек как на сайте */
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --border-color: #333333;
+  --positive: #00C853; /* Позитивные изменения */
+  --negative: #d32f2f; /* Негативные изменения */
+  /* Цвета для криптовалют как на сайте */
+  --btc-color: #F7931A;
+  --eth-color: #627EEA;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Roboto', 'Segoe UI', sans-serif;
+  font-size: 24px;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 0;
+  gap: 0;
+}
+
+/* Верхняя панель в стиле Simple Exchange */
+.bloomberg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: var(--card-bg);
+  border-bottom: 2px solid var(--border-color);
+  height: 80px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  height: 50px;
+  filter: brightness(1.1);
+}
+
+.channel-name {
+  font-size: 28px;
+  font-weight: 700; /* Уменьшаем жирность с 900 до 700 */
+  letter-spacing: 1px;
+  color: var(--accent); /* Зеленый акцент как на сайте */
+}
+
+.time-section {
+  display: flex;
+  gap: 30px;
+}
+
+.time-item {
+  text-align: center;
+}
+
+.city {
+  font-size: 14px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.time-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+#moscow-container .city,
+#moscow-container .time-value {
+  color: var(--accent);
+}
+
+/* Бегущая строка с индексами */
+.indices-ticker {
+  background: var(--card-bg);
+  border-bottom: 2px solid var(--border-color);
+  height: 50px;
+  overflow: hidden;
+}
+
+.indices-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  animation: scroll-left 30s linear infinite;
+}
+
+.index-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 30px;
+  white-space: nowrap;
+}
+
+.index-name {
+  font-size: 16px;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.index-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  min-width: 100px;
+}
+
+.index-change {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.positive {
+  color: var(--positive);
+}
+
+.negative {
+  color: var(--negative);
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Основной контент */
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  height: 100%;
+}
+
+.main-chart {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px; /* Скругляем углы как на сайте */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.main-chart:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+}
+
+.chart-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.chart-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.chart-title h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.chart-subtitle {
+  font-size: 16px;
+  color: #888;
+}
+
+.chart-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.chart-change {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.chart-container {
+  flex-grow: 1;
+  padding: 15px;
+  position: relative;
+}
+
+/* Бегущая строка с новостями */
+.news-ticker {
+  background: var(--card-bg);
+  border-top: 2px solid var(--border-color);
+  height: 60px;
+  overflow: hidden;
+}
+
+.ticker {
+  white-space: nowrap;
+  animation: ticker-scroll 25s linear infinite;
+  color: var(--accent); /* Зеленый цвет для бегущей строки как на сайте */
+  font-weight: 500;
+  padding-left: 100%;
+  line-height: 60px;
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-200%); }
+}
+
+/* Адаптивность */
+@media (max-width: 1400px) {
+  .chart-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .chart-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+  }
+  
+  .bloomberg-header {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+    gap: 15px;
+  }
+  
+  .time-section {
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 768px) {
+  .indices-container {
+    animation-duration: 20s;
+  }
+  
+  .index-item {
+    padding: 0 15px;
+  }
+  
+  .chart-title h2 {
+    font-size: 20px;
+  }
+  
+  .chart-value {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .channel-name {
+    font-size: 22px;
+  }
+  
+  .time-value {
+    font-size: 20px;
+  }
+  
+  .chart-title h2 {
+    font-size: 18px;
+  }
+  
+  .chart-value {
+    font-size: 24px;
+  }
+}
+
+/* Оптимизация для пользователей с ограниченными возможностями */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
