@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple Exchange TV Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Верхняя панель в стиле Bloomberg -->
+    <header class="bloomberg-header">
+      <div class="logo-section">
+        <div class="logo">
+          <img src="logo.svg" alt="Simple Exchange" />
+        </div>
+        <div class="channel-name">Simple Exchange</div>
+      </div>
+      
+      <div class="time-section">
+        <div class="time-item" id="moscow-container">
+          <div class="city">Москва</div>
+          <div class="time-value" id="moscow">--:--</div>
+        </div>
+        <div class="time-item">
+          <div class="city">Дубай</div>
+          <div class="time-value" id="dubai">--:--</div>
+        </div>
+        <div class="time-item">
+          <div class="city">Лондон</div>
+          <div class="time-value" id="london">--:--</div>
+        </div>
+        <div class="time-item">
+          <div class="city">Нью-Йорк</div>
+          <div class="time-value" id="ny">--:--</div>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Бегущая строка с основными индексами -->
+    <section class="indices-ticker">
+      <div class="indices-container">
+        <div class="index-item">
+          <span class="index-name">BTC/USDT</span>
+          <span class="index-value" id="btc-ticker">--</span>
+          <span class="index-change" id="btc-change">--</span>
+        </div>
+        <div class="index-item">
+          <span class="index-name">ETH/USDT</span>
+          <span class="index-value" id="eth-ticker">--</span>
+          <span class="index-change" id="eth-change">--</span>
+        </div>
+        <div class="index-item">
+          <span class="index-name">Золото</span>
+          <span class="index-value" id="gold-ticker">--</span>
+          <span class="index-change" id="gold-change">--</span>
+        </div>
+        <div class="index-item">
+          <span class="index-name">Нефть</span>
+          <span class="index-value" id="oil-ticker">--</span>
+          <span class="index-change" id="oil-change">--</span>
+        </div>
+        <div class="index-item">
+          <span class="index-name">USD/RUB ЦБ</span>
+          <span class="index-value" id="usd-cbr-ticker">--</span>
+          <span class="index-change" id="usd-cbr-change">--</span>
+        </div>
+        <div class="index-item">
+          <span class="index-name">USD/RUB Межбанк</span>
+          <span class="index-value" id="usd-mb-ticker">--</span>
+          <span class="index-change" id="usd-mb-change">--</span>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Основной контент с большими графиками -->
+    <main class="main-content">
+      <div class="chart-grid">
+        <!-- BTC Chart -->
+        <div class="main-chart">
+          <div class="chart-header">
+            <div class="chart-title">
+              <h2>Bitcoin</h2>
+              <div class="chart-subtitle">BTC/USDT</div>
+            </div>
+            <div class="chart-value" id="btc-main">--</div>
+            <div class="chart-change" id="btc-main-change">--</div>
+          </div>
+          <div class="chart-container">
+            <canvas id="chart-btc-main"></canvas>
+          </div>
+        </div>
+        
+        <!-- ETH Chart -->
+        <div class="main-chart">
+          <div class="chart-header">
+            <div class="chart-title">
+              <h2>Ethereum</h2>
+              <div class="chart-subtitle">ETH/USDT</div>
+            </div>
+            <div class="chart-value" id="eth-main">--</div>
+            <div class="chart-change" id="eth-main-change">--</div>
+          </div>
+          <div class="chart-container">
+            <canvas id="chart-eth-main"></canvas>
+          </div>
+        </div>
+        
+        <!-- Gold Chart -->
+        <div class="main-chart">
+          <div class="chart-header">
+            <div class="chart-title">
+              <h2>Золото</h2>
+              <div class="chart-subtitle">USD/унция</div>
+            </div>
+            <div class="chart-value" id="gold-main">--</div>
+            <div class="chart-change" id="gold-main-change">--</div>
+          </div>
+          <div class="chart-container">
+            <canvas id="chart-gold-main"></canvas>
+          </div>
+        </div>
+        
+        <!-- Oil Chart -->
+        <div class="main-chart">
+          <div class="chart-header">
+            <div class="chart-title">
+              <h2>Нефть</h2>
+              <div class="chart-subtitle">USD/баррель</div>
+            </div>
+            <div class="chart-value" id="oil-main">--</div>
+            <div class="chart-change" id="oil-main-change">--</div>
+          </div>
+          <div class="chart-container">
+            <canvas id="chart-oil-main"></canvas>
+          </div>
+        </div>
+        
+        <!-- USD/RUB CBR Chart -->
+        <div class="main-chart">
+          <div class="chart-header">
+            <div class="chart-title">
+              <h2>Доллар США</h2>
+              <div class="chart-subtitle">USD/RUB ЦБ</div>
+            </div>
+            <div class="chart-value" id="usd-cbr-main">--</div>
+            <div class="chart-change" id="usd-cbr-main-change">--</div>
+          </div>
+          <div class="chart-container">
+            <canvas id="chart-usd-cbr-main"></canvas>
+          </div>
+        </div>
+        
+        <!-- USD/RUB Interbank Chart -->
+        <div class="main-chart">
+          <div class="chart-header">
+            <div class="chart-title">
+              <h2>Доллар США</h2>
+              <div class="chart-subtitle">USD/RUB Межбанк</div>
+            </div>
+            <div class="chart-value" id="usd-mb-main">--</div>
+            <div class="chart-change" id="usd-mb-main-change">--</div>
+          </div>
+          <div class="chart-container">
+            <canvas id="chart-usd-mb-main"></canvas>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <!-- Бегущая строка с новостями -->
+    <footer class="news-ticker">
+      <div class="ticker" id="ticker">Загрузка...</div>
+    </footer>
+  </div>
+  
+  <!-- Фоновая музыка (автоматическая) -->
+  <audio id="bg-music" loop autoplay>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+  
+  <!-- Подключаем Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
