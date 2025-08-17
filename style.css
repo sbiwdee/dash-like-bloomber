@@ -7,7 +7,7 @@
 :root {
   --bg: #0a0a0a; /* Изменено на цвет сайта Simplexchange */
   --text: #ffffff;
-  --accent: #F8D568; /* Желтый акцент как у Bloomberg и Simplexchange */
+  --accent: #00C853; /* Зеленый акцент как на сайте Simplexchange */
   --card-bg: #0D0D0D;
   --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   --border-color: #333333;
