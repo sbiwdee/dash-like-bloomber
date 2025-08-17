@@ -160,13 +160,20 @@ function formatChange(value, prevValue) {
 // Функция обновления значения
 function updateValue(id, newValue) {
   const valueElement = elements.main[id];
+  const tickerValueElement = elements.ticker[id];
   
   if (!valueElement) {
     console.error("Элемент не найден:", id);
     return;
   }
   
+  // Обновляем значение в основном блоке
   valueElement.textContent = newValue;
+  
+  // Обновляем значение в бегущей строке
+  if (tickerValueElement) {
+    tickerValueElement.textContent = formatNumber(newValue);
+  }
   
   // Сохраняем предыдущее значение для сравнения
   state.prevValues[id] = newValue;
@@ -628,7 +635,21 @@ async function initCharts() {
 async function initApp() {
   // Сразу отображаем значения по умолчанию
   Object.entries(CONFIG.fallbackValues).forEach(([key, value]) => {
+    // Обновляем основные значения
     elements.main[key].textContent = value;
+    
+    // Обновляем значения в бегущей строке
+    if (elements.ticker[key]) {
+      elements.ticker[key].textContent = formatNumber(value);
+    }
+    
+    // Устанавливаем начальные изменения
+    if (elements.mainChange[key]) {
+      elements.mainChange[key].textContent = '--';
+    }
+    if (elements.tickerChange[key]) {
+      elements.tickerChange[key].textContent = '--';
+    }
   });
   
   // Инициализируем графики с историческими данными
